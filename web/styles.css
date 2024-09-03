@@ -1,0 +1,28 @@
+body {
+  font-family: monospace;
+}
+
+#side-by-side {
+  display: flex;
+  width: 100%;
+}
+
+#side-by-side > div {
+  width: 50%;
+}
+
+#your-app {
+  background-color: pink;
+}
+
+#authtastic-client {
+  background-color: lightgreen;
+}
+
+.inactive {
+  color: grey;
+}
+
+p {
+  word-wrap: break-word;
+}

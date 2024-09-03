@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Development</title>
+
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer type="module" src="/app/main.ts"></script>
+  </head>
+  <body>
+    <h1>Development</h1>
+    <p><i>(make sure your Authtastic server is running)</i></p>
+
+    <section id="side-by-side">
+      <div id="your-app">
+        <h2>Your App</h2>
+        <button id="simulate-redirect">Login/Register</button>
+        <p id="token"></p>
+      </div>
+      <div id="authtastic-client" class="inactive">
+        <h2>Authtastic Client</h2>
+        <form id="login">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" disabled />
+          <br />
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" disabled />
+          <br />
+          <br />
+          <input type="submit" value="Submit" disabled />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

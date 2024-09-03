@@ -1,0 +1,20 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES6",
+    "skipLibCheck": true,
+    "strict": true,
+    "declaration": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipDefaultLibCheck": true,
+    "allowJs": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

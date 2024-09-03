@@ -1,0 +1,36 @@
+{
+  "name": "@authtastic/web",
+  "version": "0.1.0",
+  "description": "Utilities which enable embed/redirect oriented Authtastic authentication for web apps.",
+  "author": "Shnoorg <shnoorg@proton.me>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shnoorg/authtastic"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --project tsconfig.json",
+    "build:watch": "nodemon -e ts",
+    "lint": "eslint --fix && prettier . --write"
+  },
+  "dependencies": {
+    "@authtastic/wasm": "^0.1.0"
+  },
+  "devDependencies": {
+    "@authtastic/vite-plugin-wasm-pack": "0.1.1",
+    "@types/node": "^22.5.2",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.2",
+    "vite": "^5.4.2"
+  }
+}
