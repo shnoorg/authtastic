@@ -1,0 +1,10 @@
+[package]
+name = "authtastic"
+version = "0.0.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+authors = ["Shnoorg <shnoorg@proton.me>"]
+repository = "https://github.com/shnoorg/authtastic"
+description = "Authtastic CLI"
+
+[dependencies]
