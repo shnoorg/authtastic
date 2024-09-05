@@ -1,6 +1,6 @@
 {
   "name": "@authtastic/web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Utilities which enable embed/redirect oriented Authtastic authentication for web apps.",
   "author": "Shnoorg <shnoorg@proton.me>",
   "license": "Apache-2.0",
@@ -18,10 +18,10 @@
     "lint": "eslint --fix && prettier . --write"
   },
   "dependencies": {
-    "@authtastic/wasm": "^0.1.0"
+    "@authtastic/wasm": "^0.2.0"
   },
   "devDependencies": {
-    "@authtastic/vite-plugin-wasm-pack": "0.1.1",
+    "@authtastic/vite-plugin-wasm-pack": "0.1.2",
     "@types/node": "^22.5.2",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",

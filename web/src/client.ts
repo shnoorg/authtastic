@@ -1,5 +1,5 @@
 import init_authtastic, {
-  registration_start, registration_finish, login_start, login_finish,
+  registration_start, registration_finish, login_start, login_finish, decrypt_token,
 } from '@authtastic/wasm';
 import { deriveAes256GcmKeyFromEcdhP384Keys, encryptAes256Gcm, generateEcdhP384Keys } from './utils';
 
@@ -81,11 +81,12 @@ export class AuthtasticClient {
 
     if (server_start.ok) {
       const blob = await server_start.blob();
-      const server_start_bytes = await blob.arrayBuffer();
+      const server_start_bytes = new Uint8Array(await blob.arrayBuffer());
+
       const client_finish = registration_finish(
         password,
         client_start.state,
-        new Uint8Array(server_start_bytes),
+        server_start_bytes,
       );
 
       await fetch(`${this.opts.url}/api/${this.opts.api_version}/registration_finish`, {
@@ -119,16 +120,16 @@ export class AuthtasticClient {
       }),
     });
 
-    const blob = await server_start.blob();
-    const server_start_bytes = await blob.arrayBuffer();
+    const client_start_blob = await server_start.blob();
+    const server_start_bytes = new Uint8Array(await client_start_blob.arrayBuffer());
 
     const client_finish = login_finish(
       password,
       client_start.state,
-      new Uint8Array(server_start_bytes),
+      server_start_bytes,
     );
 
-    const token = await fetch(`${this.opts.url}/api/${this.opts.api_version}/login_finish`, {
+    const server_finish = await fetch(`${this.opts.url}/api/${this.opts.api_version}/login_finish`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -140,7 +141,13 @@ export class AuthtasticClient {
       }),
     });
 
-    this.#token = await token.text();
+    const server_finish_blob = await server_finish.blob();
+    const server_finish_bytes = new Uint8Array(await server_finish_blob.arrayBuffer());
+
+    const encrypted_token = server_finish_bytes.slice(0, -24);
+    const nonce = server_finish_bytes.slice(-24);
+
+    this.#token = decrypt_token(encrypted_token, client_finish.session_key, nonce);
   }
 
   async redirect() {
