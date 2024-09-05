@@ -1,6 +1,6 @@
 {
   "name": "@authtastic/web",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Utilities which enable embed/redirect oriented Authtastic authentication for web apps.",
   "author": "Shnoorg <shnoorg@proton.me>",
   "license": "Apache-2.0",

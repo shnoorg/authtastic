@@ -137,7 +137,6 @@ export class AuthtasticClient {
       body: JSON.stringify({
         username,
         client_finish: [...client_finish.message],
-        session_key: [...client_finish.session_key],
       }),
     });
 
