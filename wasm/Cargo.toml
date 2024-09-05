@@ -5,15 +5,17 @@ edition = "2021"
 license = "Apache-2.0"
 authors = ["Shnoorg <shnoorg@proton.me>"]
 repository = "https://github.com/shnoorg/authtastic"
-description = "WebAssembly + JavaScript bindings for OPAQUE client operations."
+description = "WebAssembly + JavaScript bindings for client cryptography operations not supported in browsers."
 
 [dependencies]
 wasm-bindgen = "0.2.87"
 argon2 = "0.5"
-opaque-ke = { version = "3.0.0-pre.4", features = ["ristretto255", "argon2"] }
+opaque-ke = { version = "3.0.0-pre.4", features = ["argon2"] }
 serde = { version = "1.0", features = ["derive"] }
 getrandom = { version = "0.2.15", features = ["js"] }
 rand = { version = "0.8.5", features = ["getrandom"] }
+chacha20poly1305 = "0.10.1"
+blake2 = "0.10.6"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

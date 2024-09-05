@@ -1,12 +1,20 @@
-use wasm_bindgen::prelude::*;
-
 use argon2::Argon2;
+use blake2::{
+    digest::{Update, VariableOutput},
+    Blake2bVar,
+};
+use chacha20poly1305::{
+    aead::{Aead, KeyInit},
+    XChaCha20Poly1305, XNonce,
+};
 use opaque_ke::ciphersuite::CipherSuite;
 use opaque_ke::rand::rngs::OsRng;
 use opaque_ke::{
     ClientLogin, ClientLoginFinishParameters, ClientRegistration,
     ClientRegistrationFinishParameters, CredentialResponse, RegistrationResponse,
 };
+use std::str;
+use wasm_bindgen::prelude::*;
 
 struct DefaultCipherSuite;
 
@@ -147,5 +155,28 @@ pub fn login_finish(
             session_key: finish.session_key.to_vec(),
         }),
         Err(err) => return Err(err.to_string()),
+    }
+}
+
+#[wasm_bindgen]
+pub fn decrypt_token(
+    encrypted_token: Vec<u8>,
+    session_key: Vec<u8>,
+    nonce: Vec<u8>,
+) -> Result<String, String> {
+    let mut key = [0u8; 32];
+
+    let mut hasher = Blake2bVar::new(32).unwrap();
+    hasher.update(&session_key);
+    hasher.finalize_variable(&mut key).unwrap();
+
+    let cipher = XChaCha20Poly1305::new(&key.into());
+    let nonce = XNonce::from_slice(&nonce);
+
+    let plaintext = cipher.decrypt(nonce, encrypted_token.as_ref()).unwrap();
+
+    match str::from_utf8(&plaintext) {
+        Ok(t) => Ok(t.to_string()),
+        Err(_) => Err("invalid UTF-8".into()),
     }
 }
